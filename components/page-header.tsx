@@ -1,6 +1,7 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import Link from "next/link";
+import { Plus, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type PageHeaderProps = {
@@ -14,8 +15,15 @@ export function PageHeader({ onAddClick }: PageHeaderProps) {
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
           Finance Tracker
         </h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 flex items-center gap-3 text-sm text-zinc-500">
           Track income and expenses in one place.
+          <Link
+            href="/credit-card"
+            className="inline-flex items-center gap-1.5 font-medium text-zinc-700 hover:text-zinc-900"
+          >
+            <CreditCard className="size-3.5" />
+            Credit card
+          </Link>
         </p>
       </div>
       <Button
