@@ -124,7 +124,10 @@ export async function addCreditCardPayment(formData: FormData) {
     .eq("id", row.id)
     .single();
 
-  const newBalance = Math.max(0, Number(balanceRow?.balance ?? 0) - amount).toFixed(2);
+  const newBalance = Math.max(
+    0,
+    Number(balanceRow?.balance ?? 0) - amount,
+  ).toFixed(2);
   const { error: updateError } = await supabase
     .from("credit_card_balances")
     .update({ balance: newBalance, updated_at: new Date().toISOString() })
