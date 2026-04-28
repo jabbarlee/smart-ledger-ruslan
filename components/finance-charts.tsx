@@ -251,7 +251,7 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
                   />
                 }
               />
-              <Bar dataKey="value" nameKey="name" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ChartContainer>
         ) : (
@@ -303,7 +303,6 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
             />
             <Bar
               dataKey="value"
-              nameKey="label"
               fill="hsl(346 77% 50%)"
               radius={[4, 4, 0, 0]}
             />

@@ -1,6 +1,8 @@
 import { getTransactions } from "@/app/actions";
 import { FinanceTrackerContent } from "@/components/finance-tracker-content";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const transactions = await getTransactions();
 

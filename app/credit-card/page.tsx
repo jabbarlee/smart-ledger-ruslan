@@ -11,6 +11,8 @@ import { CreditCardPaymentsTable } from "@/components/credit-card-payments-table
 import { CreditCardActions } from "@/components/credit-card-actions";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = "force-dynamic";
+
 export default async function CreditCardPage() {
   const [balance, transactions, payments] = await Promise.all([
     getCreditCardBalance(),
