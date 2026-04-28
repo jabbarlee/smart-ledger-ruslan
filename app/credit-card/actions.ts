@@ -56,7 +56,7 @@ export async function addCreditCardTransaction(formData: FormData) {
   const amount = Number(formData.get("amount"));
   const description = (formData.get("description") as string) ?? null;
   const category = (formData.get("category") as string) ?? null;
-  const date = (formData.get("date") as string);
+  const date = formData.get("date") as string;
 
   const { error: insertError } = await supabase
     .from("credit_card_transactions")
@@ -84,7 +84,7 @@ export async function addCreditCardPayment(formData: FormData) {
   const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const amount = Number(formData.get("amount"));
-  const date = (formData.get("date") as string);
+  const date = formData.get("date") as string;
   const note = (formData.get("note") as string) ?? null;
 
   const { error: insertError } = await supabase
