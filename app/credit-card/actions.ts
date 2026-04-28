@@ -1,11 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseClient } from "@/lib/supabase";
 
 const CAPITAL_ONE_NAME = "Capital One";
 
 async function getBalanceRow() {
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("credit_card_balances")
     .select("id, balance, name")
@@ -24,6 +25,7 @@ export async function getCreditCardBalance() {
 }
 
 export async function getCreditCardTransactions() {
+  const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const { data, error } = await supabase
     .from("credit_card_transactions")
@@ -36,6 +38,7 @@ export async function getCreditCardTransactions() {
 }
 
 export async function getCreditCardPayments() {
+  const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const { data, error } = await supabase
     .from("credit_card_payments")
@@ -48,6 +51,7 @@ export async function getCreditCardPayments() {
 }
 
 export async function addCreditCardTransaction(formData: FormData) {
+  const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const amount = Number(formData.get("amount"));
   const description = (formData.get("description") as string) ?? null;
@@ -77,6 +81,7 @@ export async function addCreditCardTransaction(formData: FormData) {
 }
 
 export async function addCreditCardPayment(formData: FormData) {
+  const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const amount = Number(formData.get("amount"));
   const date = (formData.get("date") as string);
@@ -105,6 +110,7 @@ export async function addCreditCardPayment(formData: FormData) {
 }
 
 export async function setCreditCardBalance(formData: FormData) {
+  const supabase = createSupabaseClient();
   const { id } = await getBalanceRow();
   const balance = Number(formData.get("balance"));
 

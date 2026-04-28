@@ -1,9 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseClient } from "@/lib/supabase";
 
 export async function getTransactions() {
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("transactions")
     .select("*")
@@ -16,6 +17,7 @@ export async function getTransactions() {
 }
 
 export async function addTransaction(formData: FormData) {
+  const supabase = createSupabaseClient();
   const amount = Number(formData.get("amount"));
   const category = (formData.get("category") as string) ?? null;
   const description = (formData.get("description") as string) ?? null;
@@ -37,6 +39,7 @@ export async function addTransaction(formData: FormData) {
 }
 
 export async function deleteTransaction(id: string) {
+  const supabase = createSupabaseClient();
   const { error } = await supabase.from("transactions").delete().eq("id", id);
 
   if (error) {
@@ -46,6 +49,7 @@ export async function deleteTransaction(id: string) {
 }
 
 export async function updateTransaction(id: string, formData: FormData) {
+  const supabase = createSupabaseClient();
   const amount = Number(formData.get("amount"));
   const category = (formData.get("category") as string) ?? null;
   const description = (formData.get("description") as string) ?? null;
