@@ -4,16 +4,20 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseClient } from "@/lib/supabase";
 
 export async function getTransactions() {
-  const supabase = createSupabaseClient();
-  const { data, error } = await supabase
-    .from("transactions")
-    .select("*")
-    .order("date", { ascending: false });
+  try {
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+      .from("transactions")
+      .select("*")
+      .order("date", { ascending: false });
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      return [];
+    }
+    return data ?? [];
+  } catch {
+    return [];
   }
-  return data;
 }
 
 export async function addTransaction(formData: FormData) {
