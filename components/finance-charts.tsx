@@ -11,18 +11,22 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
 const CATEGORY_COLORS = [
-  "hsl(142 76% 36%)",   // emerald-600
-  "hsl(346 77% 50%)",   // rose-500
-  "hsl(217 91% 60%)",   // blue-500
-  "hsl(38 92% 50%)",    // amber-500
-  "hsl(262 83% 58%)",   // violet-500
-  "hsl(199 89% 48%)",   // cyan-500
-  "hsl(25 95% 53%)",    // orange-500
-  "hsl(330 81% 60%)",   // pink-500
-  "hsl(215 14% 34%)",   // zinc-500
+  "hsl(142 76% 36%)", // emerald-600
+  "hsl(346 77% 50%)", // rose-500
+  "hsl(217 91% 60%)", // blue-500
+  "hsl(38 92% 50%)", // amber-500
+  "hsl(262 83% 58%)", // violet-500
+  "hsl(199 89% 48%)", // cyan-500
+  "hsl(25 95% 53%)", // orange-500
+  "hsl(330 81% 60%)", // pink-500
+  "hsl(215 14% 34%)", // zinc-500
 ];
 
 export type TransactionForCharts = {
@@ -73,7 +77,11 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
       const dateStr = d.toISOString().slice(0, 10);
       dates.push({
         dateStr,
-        label: d.toLocaleDateString("en-US", { weekday: "short", day: "numeric", month: "short" }),
+        label: d.toLocaleDateString("en-US", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        }),
         value: 0,
       });
     }
@@ -81,7 +89,10 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
     for (const t of transactions) {
       if (t.type !== "expense" || !t.date) continue;
       const key = t.date.slice(0, 10);
-      expensesByDate.set(key, (expensesByDate.get(key) ?? 0) + Number(t.amount));
+      expensesByDate.set(
+        key,
+        (expensesByDate.get(key) ?? 0) + Number(t.amount),
+      );
     }
     return dates.map((d) => ({
       ...d,
@@ -121,10 +132,7 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
           Income vs expense
         </h3>
         {hasAny ? (
-          <ChartContainer
-            config={barConfig}
-            className="h-[240px] w-full"
-          >
+          <ChartContainer config={barConfig} className="h-[240px] w-full">
             <PieChart>
               <ChartTooltip
                 content={
@@ -165,10 +173,7 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
           Expenses by category
         </h3>
         {hasSpending ? (
-          <ChartContainer
-            config={donutConfig}
-            className="h-[240px] w-full"
-          >
+          <ChartContainer config={donutConfig} className="h-[240px] w-full">
             <PieChart>
               <ChartTooltip
                 content={
@@ -215,15 +220,15 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
           Income vs expenses
         </h3>
         {hasAny ? (
-          <ChartContainer
-            config={barConfig}
-            className="h-[240px] w-full"
-          >
+          <ChartContainer config={barConfig} className="h-[240px] w-full">
             <BarChart
               data={incomeVsExpense}
               margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
             >
-              <CartesianGrid strokeDasharray="3 3" className="stroke-zinc-200" />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                className="stroke-zinc-200"
+              />
               <XAxis
                 dataKey="name"
                 tick={{ fill: "hsl(0 0% 45%)", fontSize: 12 }}
@@ -265,15 +270,16 @@ export function FinanceCharts({ transactions }: FinanceChartsProps) {
         <h3 className="mb-4 text-sm font-medium text-zinc-500">
           Last 7 days spending
         </h3>
-        <ChartContainer
-          config={last7Config}
-          className="h-[200px] w-full"
-        >
+        <ChartContainer config={last7Config} className="h-[200px] w-full">
           <BarChart
             data={last7DaysSpending}
             margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
           >
-            <CartesianGrid strokeDasharray="3 3" className="stroke-zinc-200" vertical={false} />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              className="stroke-zinc-200"
+              vertical={false}
+            />
             <XAxis
               dataKey="label"
               tick={{ fill: "hsl(0 0% 45%)", fontSize: 11 }}

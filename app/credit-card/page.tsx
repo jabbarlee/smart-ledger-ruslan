@@ -43,11 +43,16 @@ export default async function CreditCardPage() {
         </header>
 
         <section className="mb-10">
-          <CreditCardBalanceCard name={balance.name} balance={balance.balance} />
+          <CreditCardBalanceCard
+            name={balance.name}
+            balance={balance.balance}
+          />
         </section>
 
         <section className="mb-10">
-          <h2 className="mb-4 text-sm font-medium text-zinc-500">Transactions (charges)</h2>
+          <h2 className="mb-4 text-sm font-medium text-zinc-500">
+            Transactions (charges)
+          </h2>
           <CreditCardTransactionsTable transactions={transactions} />
         </section>
 
